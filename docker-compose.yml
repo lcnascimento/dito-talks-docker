@@ -20,6 +20,8 @@ services:
 
   dashboard:
     build: ./dashboard
+    volumes:
+      - ./dashboard/src:/dito-talks-docker/src
     depends_on:
       - api
     ports:
