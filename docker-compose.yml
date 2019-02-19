@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  mongo:
+    image: mongo:3.6
+    ports:
+      - "27017:27017"
+    container_name: dito_talks_docker_mongo
+
+  api:
+    build: ./api
+    environment:
+      - MONGO_ENDPOINT=mongodb://mongo:27017
+      - MONGO_DATABASE=dito-talks
+      - PORT=3000
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+    container_name: dito_talks_docker_api
+
+  dashboard:
+    build: ./dashboard
+    depends_on:
+      - api
+    ports:
+      - "8080:8080"
+    container_name: dito_talks_docker_dashboard
